@@ -1,11 +1,10 @@
 package oficina.warps;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class Warps extends JavaPlugin {
+public final class Teleporters extends JavaPlugin {
 
     private static Plugin plugin;
 
@@ -16,11 +15,14 @@ public final class Warps extends JavaPlugin {
         plugin = this;
 
         // Register commands.
-        PluginCommand command = this.getCommand("createwarp");
-        if (command != null) command.setExecutor(new CreateWarp());
+        PluginCommand createwarp = this.getCommand("createwarp");
+        if (createwarp != null) createwarp.setExecutor(new CreateWarp());
 
-        PluginCommand command1 = this.getCommand("warp");
-        if (command1 != null) command1.setExecutor(new Warp());
+        PluginCommand warp = this.getCommand("warp");
+        if (warp != null) warp.setExecutor(new Warp());
+
+        PluginCommand reload = this.getCommand("reload");
+        if (reload != null) reload.setExecutor(new Reload());
     }
 
     @Override

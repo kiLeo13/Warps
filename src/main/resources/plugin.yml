@@ -13,10 +13,20 @@ commands:
     description: Takes players to certain places.
     permission: warp.*
     usage: /<command> <WarpName>
+  teleporters:
+    description: General control of plugin.
+    permission: teleporters.*
+    usage: /<command> <argument>
 permissions:
   warp.create:
     description: Allows players to create warps.
     default: op
   warp.*:
     description: Allows players to use warp command.
+    default: op
+  teleporters.*:
+    description: Allows players to manage the plugin.
+    default: op
+  teleporters.reload:
+    description: Allows players to reload the configuration.
     default: op

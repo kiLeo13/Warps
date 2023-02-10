@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Warp implements CommandExecutor, TabCompleter {
@@ -23,29 +24,31 @@ public class Warp implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        if (args.length == 0) {
-            sender.sendRichMessage("<red>Incorrect usage!");
-            return false;
+        if (args.length != 1) {
+            sender.sendRichMessage("<red>Incorrect usage!\n<yellow>/warp <gold><<yellow>WarpName<gold>>");
+            return true;
         }
 
         Player player = (Player) sender;
-        Location location = WarpConfig.getInstance().getWarpsConfig().getLocation("warp");
+        Location location = WarpConfig.getInstance().getWarpLocation(args[0]);
 
-        if (location == null) {
+        if (WarpConfig.getInstance().getWarpLocation(args[0]) == null) {
             sender.sendRichMessage("<red>Warp not found.");
             return true;
         }
 
         player.teleportAsync(location);
-        player.sendRichMessage("<green>Successfully teleported to <gold>" + args[0] + "<green>.");
+        player.sendRichMessage("<green>Successfully teleported to <gold>" + args[0].toLowerCase() + "<green>.");
 
-        player.playSound(location, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.MASTER, 1, 1);
+        player.playSound(location, Sound.ENTITY_ENDERMAN_TELEPORT, SoundCategory.MASTER, 1, 1);
 
         return true;
     }
 
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        return null;
+        if (args.length == 1) {
+            return WarpConfig.getInstance().getWarps();
+        } else return new ArrayList<>();
     }
 }
