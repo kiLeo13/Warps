@@ -5,8 +5,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -29,15 +27,11 @@ public class CreateWarp implements CommandExecutor, TabCompleter {
 
         Player player = (Player) sender;
 
-        String warpName = args[0].toLowerCase();
-        FileConfiguration fileConfig = WarpConfig.getInstance().getWarpsConfig();
-        ConfigurationSection section = fileConfig.getConfigurationSection(warpName);
+        // Creating Warp.
 
-        if (section == null) section = fileConfig.createSection(warpName);
+        WarpConfig.getInstance().addWarp(args[0], player.getLocation());
 
-        section.set("position", player.getLocation());
-
-        player.sendRichMessage("<green>Warp <light_purple>" + warpName + "<green> has been successfully created.");
+        player.sendRichMessage("<green>Warp <light_purple>" + args[0].toLowerCase() + "<green> has been successfully created.");
 
         return true;
     }

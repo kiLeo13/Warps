@@ -1,6 +1,8 @@
 package oficina.warps.setup;
 
 import oficina.warps.Warps;
+import org.bukkit.Location;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -31,5 +33,20 @@ public class WarpConfig {
     public void reloadWarpConfig() {
         try { warpsConfig.load(dataFile); }
         catch (IOException | InvalidConfigurationException e) { e.printStackTrace(); }
+    }
+
+    public void addWarp(String name, Location location) {
+        String warpName = name.toLowerCase();
+        ConfigurationSection section = getWarpsConfig().getConfigurationSection(warpName);
+
+        if (section == null) section = getWarpsConfig().createSection(warpName);
+
+        section.set("position", location);
+
+        try {
+            getWarpsConfig().save("warps.yml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
