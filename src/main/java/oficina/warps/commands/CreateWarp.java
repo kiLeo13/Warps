@@ -1,9 +1,6 @@
-package oficina.warps;
+package oficina.warps.commands;
 
 import oficina.warps.setup.WarpConfig;
-import org.bukkit.Location;
-import org.bukkit.Sound;
-import org.bukkit.SoundCategory;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -15,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Warp implements CommandExecutor, TabCompleter {
+public class CreateWarp implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
@@ -25,30 +22,25 @@ public class Warp implements CommandExecutor, TabCompleter {
         }
 
         if (args.length != 1) {
-            sender.sendRichMessage("<red>Incorrect usage!\n<yellow>/warp <gold><<yellow>WarpName<gold>>");
+            sender.sendRichMessage("<red>Incorrect usage!\n<yellow>/createwarp <gold><<yellow>WarpName<gold>>");
             return true;
         }
 
         Player player = (Player) sender;
-        Location location = WarpConfig.getInstance().getWarpLocation(args[0]);
+        boolean warpExists = WarpConfig.getInstance().warpExists(args[0]);
 
-        if (WarpConfig.getInstance().getWarpLocation(args[0]) == null) {
-            sender.sendRichMessage("<red>Warp not found.");
-            return true;
-        }
+        // Creating Warp.
 
-        player.teleportAsync(location);
-        player.sendRichMessage("<green>Successfully teleported to <gold>" + args[0].toLowerCase() + "<green>.");
+        WarpConfig.getInstance().addWarp(args[0], player.getLocation());
 
-        player.playSound(location, Sound.ENTITY_ENDERMAN_TELEPORT, SoundCategory.MASTER, 1, 1);
+        if (!warpExists) player.sendRichMessage("<green>Warp <light_purple>" + args[0].toLowerCase() + "<green> has been successfully created.");
+        else player.sendRichMessage("<yellow>Warp <light_purple>" + args[0].toLowerCase() + "<yellow> has been overridden!");
 
         return true;
     }
 
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (args.length == 1) {
-            return WarpConfig.getInstance().getWarps();
-        } else return new ArrayList<>();
+        return new ArrayList<>();
     }
 }

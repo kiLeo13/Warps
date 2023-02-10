@@ -1,6 +1,8 @@
 package oficina.warps.setup;
 
 import oficina.warps.Teleporters;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -35,9 +37,12 @@ public class WarpConfig {
     public boolean reloadWarpConfig() {
         try {
             warpsConfig.load(dataFile);
+
+            Bukkit.getLogger().info(ChatColor.YELLOW + "[" + ChatColor.GOLD + Teleporters.getPlugin() + "" + ChatColor.YELLOW + "]" + ChatColor.WHITE + " configuration successfully reloaded!");
             return true;
         } catch (IOException | InvalidConfigurationException e) {
             e.printStackTrace();
+
             return false;
         }
     }
