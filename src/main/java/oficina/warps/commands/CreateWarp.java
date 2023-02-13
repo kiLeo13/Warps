@@ -22,7 +22,7 @@ public class CreateWarp implements CommandExecutor, TabCompleter {
         }
 
         if (args.length != 1) {
-            sender.sendRichMessage("<red>Incorrect usage!\n<yellow>/createwarp <gold><<yellow>WarpName<gold>>");
+            sender.sendRichMessage("<red>Incorrect usage!\n<green>/createwarp <gold><<yellow>WarpName<gold>>");
             return true;
         }
 

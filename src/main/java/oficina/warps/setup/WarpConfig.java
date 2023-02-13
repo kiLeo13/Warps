@@ -48,17 +48,33 @@ public class WarpConfig {
     }
 
     public void addWarp(String name, Location location) {
-        String warpName = name.toLowerCase();
-        ConfigurationSection section = getWarpsConfig().getConfigurationSection(warpName);
+        name = name.toLowerCase();
+        ConfigurationSection section = getWarpsConfig().getConfigurationSection(name);
 
-        if (section == null) section = getWarpsConfig().createSection(warpName);
+        if (section == null) section = getWarpsConfig().createSection(name);
 
         section.set("position", location);
 
         try {
             getWarpsConfig().save(dataFile);
+
+            Bukkit.getLogger().info(ChatColor.YELLOW + "[" + ChatColor.GOLD + Teleporters.getPlugin() + "" + ChatColor.YELLOW + "]" + ChatColor.GREEN + " successfully created " + ChatColor.LIGHT_PURPLE + name + ChatColor.GREEN + ".");
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public boolean deleteWarp(String name) {
+        name = name.toLowerCase();
+
+        getWarpsConfig().set(name, null);
+
+        try {
+            getWarpsConfig().save(dataFile);
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 

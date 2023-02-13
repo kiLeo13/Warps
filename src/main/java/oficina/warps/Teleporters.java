@@ -1,6 +1,7 @@
 package oficina.warps;
 
 import oficina.warps.commands.CreateWarp;
+import oficina.warps.commands.DeleteWarp;
 import oficina.warps.commands.TeleportersMain;
 import oficina.warps.commands.Warp;
 import org.bukkit.Bukkit;
@@ -15,11 +16,21 @@ public final class Teleporters extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
 
         plugin = this;
 
         // Register commands.
+        registerCommands();
+
+        Bukkit.getLogger().info(ChatColor.GOLD + "" + this + ChatColor.LIGHT_PURPLE + " has been successfully enabled!");
+    }
+
+    @Override
+    public void onDisable() { Bukkit.getLogger().info(ChatColor.LIGHT_PURPLE + "Bye bye!"); }
+
+    public static Plugin getPlugin() { return plugin; }
+
+    private void registerCommands() {
         PluginCommand createwarp = this.getCommand("createwarp");
         if (createwarp != null) createwarp.setExecutor(new CreateWarp());
 
@@ -29,14 +40,7 @@ public final class Teleporters extends JavaPlugin {
         PluginCommand reload = this.getCommand("teleporters");
         if (reload != null) reload.setExecutor(new TeleportersMain());
 
-        Bukkit.getLogger().info(ChatColor.GOLD + "" + this + ChatColor.LIGHT_PURPLE + " has been successfully enabled!");
+        PluginCommand deletewarp = this.getCommand("deletewarp");
+        if (deletewarp != null) deletewarp.setExecutor(new DeleteWarp());
     }
-
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
-        Bukkit.getLogger().info(ChatColor.LIGHT_PURPLE + "Bye bye!");
-    }
-
-    public static Plugin getPlugin() { return plugin; }
 }

@@ -1,4 +1,4 @@
-name: Warps
+name: Teleporters
 version: '${project.version}'
 main: oficina.warps.Teleporters
 api-version: 1.19
@@ -17,6 +17,10 @@ commands:
     description: General control of plugin.
     permission: teleporters.*
     usage: /<command> <argument>
+  deletewarp:
+    description: Delete a warp.
+    permission: warp.delete
+    usage: /<command> <WarpName>
 permissions:
   warp.create:
     description: Allows players to create warps.
@@ -29,4 +33,7 @@ permissions:
     default: op
   teleporters.reload:
     description: Allows players to reload the configuration.
+    default: op
+  warp.delete:
+    description: Allows players to delete a warp.
     default: op
