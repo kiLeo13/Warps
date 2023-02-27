@@ -4,7 +4,6 @@ import oficina.warps.commands.CreateWarp;
 import oficina.warps.commands.DeleteWarp;
 import oficina.warps.commands.TeleportersMain;
 import oficina.warps.commands.Warp;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.Plugin;
@@ -22,11 +21,11 @@ public final class Teleporters extends JavaPlugin {
         // Register commands.
         registerCommands();
 
-        Bukkit.getLogger().info(ChatColor.GOLD + "" + this + ChatColor.LIGHT_PURPLE + " has been successfully enabled!");
+        System.out.println(ChatColor.LIGHT_PURPLE + " has been successfully enabled!");
     }
 
     @Override
-    public void onDisable() { Bukkit.getLogger().info(ChatColor.LIGHT_PURPLE + "Bye bye!"); }
+    public void onDisable() { System.out.println(ChatColor.LIGHT_PURPLE + "Bye bye!"); }
 
     public static Plugin getPlugin() { return plugin; }
 

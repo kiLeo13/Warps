@@ -38,7 +38,7 @@ public class WarpConfig {
         try {
             warpsConfig.load(dataFile);
 
-            Bukkit.getLogger().info(ChatColor.YELLOW + "[" + ChatColor.GOLD + Teleporters.getPlugin() + "" + ChatColor.YELLOW + "]" + ChatColor.WHITE + " configuration successfully reloaded!");
+            System.out.println(ChatColor.GREEN + "Configuration successfully reloaded!");
             return true;
         } catch (IOException | InvalidConfigurationException e) {
             e.printStackTrace();
